@@ -1,0 +1,71 @@
+<html>
+
+<script>
+	// Declare variables
+	var tortoise, hare, km, userInput;
+
+	// Create Animal class
+  function Animal(name, speed, focus) {
+    this.name = name;
+		this.speed = speed;
+		this.focus = focus;
+		this.position = 0;
+		this.run = function() {
+			if (Math.random() * 10 < this.focus) {
+				this.position = this.position + this.speed;
+			}
+		}
+	}
+
+	// Initialize the three racers and distance
+	tortoise = new Animal("Beth", 1, 10);
+	hare = new Animal("Peter", 4, 2);
+	custom = new Animal("Racer", 1, 8);
+
+	km = 20;
+
+	// Prompt the user for the name of their racer
+	custom.name = prompt("Welcome to the race. What is your racer's name?");
+
+	// Prompt the user for the distance with error checking for a number input
+	do {
+		km = prompt("How far would you like to race?");
+	} while (isNaN(km))
+
+	// do while loop continues asking user for input until they type END
+	do {
+
+		// Display the racer's current stats and ask for input
+		userInput = prompt(custom.name + "'s STATS: Speed = " + Math.floor(custom.speed) + "; " + "Focus = " + Math.floor(custom.focus) + "\n\nUse keywords 'UP' and 'DOWN' to adjust your racer's speed. Focus will adjust inversely. \n\nEnter 'END' when you're ready to race.").toUpperCase();
+
+		// Depending on input, +/- the speed and focus, error check the input
+		switch (userInput) {
+			case "UP":
+				if (custom.focus >= 3.2) {
+					custom.speed++;
+					custom.focus -= 2.2;
+				}
+				break;
+			case "DOWN":
+				if (custom.speed >= 2) {
+					custom.speed--;
+					custom.focus += 2.2;
+				}
+				break;
+			case "END":
+				break;
+			default:
+				alert("Enter 'UP', 'DOWN', or 'END' only.")
+			}
+		}	while (userInput != "END")
+
+	// Continue to call the run functions until one or more racers reaches the finish line, printing status to the console at each step
+	while (hare.position < km && tortoise.position < km && custom.position < km) {
+		hare.run();
+		tortoise.run();
+		custom.run();
+		console.log(hare.name + ": " + hare.position + ", " + tortoise.name + ": " + tortoise.position + ", " + custom.name + ": " + custom.position);
+	}
+</script>
+
+</html>
